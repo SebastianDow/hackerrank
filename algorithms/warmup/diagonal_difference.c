@@ -2,12 +2,10 @@
 #include <stdlib.h>
 
 unsigned int diagonalDifference( int * * x, int n ){
-    unsigned int r;
     int a = 0, i;
     for( i = 0; i < n; i++ )
-        a += * (* (x + i) + i) - * (* (x + i) + (n - i - 1));
-    r = abs(a);
-    return r;
+        a += * (* (x + i) + i) - * (* (x + i) + (n - i - 1));;
+    return abs(a);
 }
 
 int * * inputSquareMatrix( int n ){
@@ -15,18 +13,22 @@ int * * inputSquareMatrix( int n ){
     x = malloc(sizeof(int *) * n);
     int i, j;
     for( i = 0; i < n; i++ ){
-        int * q = malloc(sizeof(int) * n);
-        * (x + i) = q;
+        int * r = malloc(sizeof(int) * n);
+        * (x + i) = r;
         for ( j = 0; j < n; j++ )
-            scanf("%d", (* (x + i) + j));
+            scanf("%d", (r + j));
     }
     return x;
 }
 
 int main(){
-    int n;
+    int n, i;
     scanf("%d", &n);
     int * * x = inputSquareMatrix(n);
     printf("%d", diagonalDifference(x, n));
+    for (i = 0; i < n; i++) {
+        free(* (x + i));
+    }
+    free(x);
     return 0;
 }
