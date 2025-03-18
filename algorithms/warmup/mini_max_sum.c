@@ -1,24 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void miniMaxsum( int * a ){
-    int i, total = 0, minSum, maxSum;
-    int min = * a, max = * a;
-    for( i = 0; i < 5; i++ ){
+long int * miniMaxsum( long int * a, int size ){
+    long int i, total = 0;
+    long int * minMax = malloc(2 * sizeof(long int));
+    long int min = * a, max = * a;
+    for( i = 0; i < size; i++ ){
         total += * (a + i);
         if( min > * (a + i) ) min = * (a + i);
         if( max < * (a + i) ) max = * (a + i);
     }
-    minSum = total - max;
-    maxSum = total - min;
-    printf("%d %d", minSum, maxSum);
+    * minMax = total - max;
+    * (minMax + 1) = total - min;
+    return minMax;
 }
 
 int main(){
     int i;
-    int * a = malloc(sizeof(int) * 5);
+    long int * a = malloc(5 * sizeof(long int));
+    long int * r;
     for( i = 0; i < 5; i++)
-        scanf("%d", (a + i));
-    miniMaxsum(a);
+        scanf("%ld", (a + i));
+    r = miniMaxsum(a, 5);
+    printf("%ld %ld", * r, *(r + 1));
     return 0;
 }
